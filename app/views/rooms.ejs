@@ -1,0 +1,70 @@
+<% include header%>
+
+<div class="container">
+
+    <%if (head == "rooms") { %>
+    <h1>Lobby</h1> %>
+    <% } else { %>
+    <h1><%= head%></h1>
+    <% } %>
+    <div class="row" id="messageArea">
+        <div class="col-md-4">
+            <div class="well">
+                <h3>Users online:</h3>
+                <ul>
+                    <% userNames.forEach(function(user) { %>
+                    <li><%=user.userName%></li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="chat" id="chat">
+                <%if (allMessages.length) { %>
+                <ul>
+                    <% allMessages.forEach(function(msg) { %>
+                    <div class="well well-sm">
+                        <span><strong><%= msg.username%></strong> <%= msg.time.toISOString().replace(/T/, ' ').replace(/\..+/, '') %></span>
+                        <p><%=msg.content%></p>
+                    </div>
+                    <% })} %>
+                </ul>
+            </div>
+            <form id="messageForm" method="post" role="form">
+                <div class="form-group">
+                    <label>Enter Message:</label>
+                    <textarea class="form-control" id="message" name="message"></textarea>
+                    <br/>
+                    <input type="submit" class="btn btn-primary" value="Send Message"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row" id="roomArea">
+        <div class="col-md-4">
+            <h3>Manage Chat Rooms</h3>
+            <a href="/create" class="btn btn-primary">Create</a>
+            <a href="/rooms" class="btn btn-info">Edit</a>
+            <a href="/delete" class="btn btn-danger">Delete</a>
+        </div>
+        <div class="col-md-8">
+            <div class="well">
+                <h3>Chat Rooms:</h3>
+                <ul class="list-group" id="rooms">
+                    <li><a href="rooms">Lobby</a> </li>
+                    <%if (allRooms.length) { %>
+                    <% allRooms.forEach(function(room) { %>
+                    <li><a href="/<%=room.title%>"><%=room.title%></a></li>
+                    <% }); %>
+                    <% } else { %>
+                    <p>No rooms yet - create one!</p>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include footer%>
+

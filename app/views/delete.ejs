@@ -1,0 +1,33 @@
+<% include header%>
+
+<div class="container" style="display: table; margin-top: 10%">
+    <div class="row" style="display: table-cell; vertical-align: middle;">
+        <div class="text-center col-md-4 col-md-offset-4">
+            <h3>Delete Chat Room</h3>
+            <form id="roomForm" method="post" role="form">
+                <div class="form-group">
+                    <input class="form-control" id="title" name="title" placeholder="Enter room name"/>
+                    <br/>
+                    <input type="submit" class="btn btn-primary" value="Delete"/>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="well">
+                <h3>Chat Rooms:</h3>
+                <ul class="list-group" id="rooms">
+                    <%if (allRooms.length) { %>
+                    <% allRooms.forEach(function(room) { %>
+                    <li><a href="/<%=room.title%>"><%=room.title%></a></li>
+                    <% }); %>
+                    <% } else { %>
+                    <p>No rooms yet - create one!</p>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include footer%>
+
